@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Flashcard = ({ frontText, backText }) => {
-  const [isFront, setIsFront] = useState(true);
+const Flashcard = ({ frontText, backText,bollen}) => {
+  const [isFront, setIsFront] = useState(bollen);
 
   const toggleCard = () => {
     setIsFront(!isFront);
@@ -22,16 +22,15 @@ const Flashcard = ({ frontText, backText }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#E94357',
-    width: 300,
-    height: 400,
+    marginTop: 20,
+    width:400,
+    height:400,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    borderWidth: 2,
-    borderColor: 'lightgray',
   },
   cardText: {
-    fontSize: 18,
+    fontSize: 50,
     textAlign: 'center',
     color:'white'
   },

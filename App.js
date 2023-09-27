@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Flashcard from './components/FlashCard';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 const flashcardsData = [
   { frontText: 'Hello', backText: 'Hola' },
   { frontText: 'Goodbye', backText: 'Adiós' },
@@ -9,7 +10,7 @@ const flashcardsData = [
 
 const App = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [countCard,setCountCard]=useState(flashcardsData.length);
   const showNextCard = () => {
     if (currentIndex < flashcardsData.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -25,9 +26,15 @@ const App = () => {
   const resetCard = () => {
     setCurrentIndex(0);
   };
+  const Remove = () => {
+    flashcardsData.splice(currentIndex,1);
+    setCountCard(flashcardsData.length);
+  };
+
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Play ({countCard}) Cards</Text>
       <Flashcard
         frontText={flashcardsData[currentIndex].frontText}
         backText={flashcardsData[currentIndex].backText}
@@ -51,7 +58,7 @@ const App = () => {
       <View style={styles.buttonBottom}>
         <TouchableOpacity
           style={styles.buttons}
-          onPress={resetCard}
+          onPress={Remove}
         >
           <Text style={styles.buttonText}>Remove From Deck </Text>
         </TouchableOpacity>
@@ -63,19 +70,32 @@ const App = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.IconBottom}>
-        <Icon name="play-circle-o" size={20} color="#E94357" />
-        <Icon name="cogs" size={20} color="#E94357" />
+        <View>
+          <Icon style={styles.iconRight} name="play-circle-o" size={30} color="#E94357" />
+          <Text>Play</Text>
+        </View>
+        <View>
+          <Icon style={styles.iconLeft} name="cogs" size={30} color="#E94357" />
+          <Text width={60}>Settings</Text>
+        </View>
+       
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  header:{
+    backgroundColor:"white",
+    padding: 30,
+    paddingLeft: 220,
+    paddingRight: 220,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: '#ECE9E9',
   },
   buttonContainer: {
     width: 300,
@@ -87,7 +107,7 @@ const styles = StyleSheet.create({
   button: {
     width:100,
     alignItems:'center',
-    backgroundColor: 'white', // Đặt màu nền của nút ở đây
+    
     padding: 10,
     borderRadius: 5,
     borderColor:'#E94357',
@@ -104,15 +124,21 @@ const styles = StyleSheet.create({
     width:300,
     alignItems:'center',
     padding:10,
-    borderColor:'lightgray',
-    borderWidth:1,
-    margin:10
+    backgroundColor:"#fff",
+    margin:15
   },
   IconBottom:{
+    flex:1,
     flexDirection:'row',
-    justifyContent:'space-between',
-    width:300
-  }
+    backgroundColor:'white',
+    borderWidth: 1,
+    paddingLeft:220,
+    paddingRight:220,
+    padding: 10,
+    gap: 160,
+
+  },
+ 
 });
 
 export default App;
